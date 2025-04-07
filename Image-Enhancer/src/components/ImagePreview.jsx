@@ -1,4 +1,5 @@
-const ImagePreview = () => {
+import Loading from "./Loading";
+const ImagePreview = (props) => {
   return (
     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
       {/* Original Image */}
@@ -7,11 +8,17 @@ const ImagePreview = () => {
           Original Image
         </h2>
 
-        <img src="" alt="" className="w-full h-full object-cover" />
-
-        <div className="flex justify-center items-center h-80 bg-gray-200">
-          No Image Selected
-        </div>
+        {props.uploaded ? (
+          <img
+            src={props.uploaded}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="flex justify-center items-center h-80 bg-gray-200">
+            No Image Selected
+          </div>
+        )}
       </div>
 
       {/* Enhanced Image */}
@@ -20,11 +27,17 @@ const ImagePreview = () => {
           Enhanced Image
         </h2>
 
-        <img src="" alt="" className="w-full h-full object-cover" />
+        {props.enhanced && !props.loading && (
+          <img src="" alt="" className="w-full h-full object-cover" />
+        )}
 
-        <div className="flex justify-center items-center h-80 bg-gray-200">
-          No Enhanced Image
-        </div>
+        {props.loading ? (
+          <Loading />
+        ) : (
+          <div className="flex justify-center items-center h-80 bg-gray-200">
+            No Enhanced Image
+          </div>
+        )}
       </div>
     </div>
   );
